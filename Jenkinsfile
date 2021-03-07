@@ -1,10 +1,8 @@
-  def containsTranslationsChange = false
-  def containsOtherChange = false
-  def matchTranslationFiles = 'translations/.*\\.json$'
-  def matchOtherFiles = "^(?!${matchTranslationFiles}).*\$"
+def containsOtherChange = false
+def matchTranslationFiles = 'translations/.*\\.json$'
+def matchOtherFiles = "^(?!${matchTranslationFiles}).*\$"
 
-pipeline {
-    agent any
+node {
     stages {
         stage('Prepare') {
             steps {
@@ -19,10 +17,7 @@ pipeline {
               changeset pattern: matchTranslationFiles, comparator: 'REGEXP'
             }
             steps {
-                script {
-                    containsTranslationsChange = true
-                }
-                echo 'Translations change detected'
+                echo 'Translations change detected, trigger external job.'
 
                 build job: 'utils/translations', parameters: [
                   string(name: 'COMMIT', value: 'HEAD')
@@ -35,14 +30,21 @@ pipeline {
                 // if changeset contains changes other than translations
                 changeset pattern: matchOtherFiles, comparator: 'REGEXP'
             }
-            stages {
-                echo 'Other change detected, building others'
-                stage('Build others...') {
-                    steps {
-                        echo 'Building others...'
-                    }
-                }
+            steps {
+                echo 'Other change detected.'
+                containsOtherChange = true
             }
+        }
+
+        if(!containsOtherChange) {
+          currentBuild.result = 'SUCCESS'
+          return
+        }
+
+        stage('Build others...') {
+          steps {
+              echo 'Building others...'
+          }
         }
     }
 }
