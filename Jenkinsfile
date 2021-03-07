@@ -26,7 +26,7 @@ pipeline {
         stage('Determine if contains other change.....') {
             when {
                 allOf {
-                    changeset "**/*.*";
+                    changeset "**/*.*"
                     not {
                       changeset "translations/**/*.json"
                     }
