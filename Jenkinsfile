@@ -43,12 +43,10 @@ pipeline {
             }
         }
 
-        script {
-          if(!containsOtherChange) {
-            echo 'No other change detected, closing '
-            currentBuild.result = 'SUCCESS'
-            return
-          }
+        if(!containsOtherChange) {
+          echo 'No other change detected, closing '
+          currentBuild.result = 'SUCCESS'
+          return
         }
 
         stage('Build others...') {
