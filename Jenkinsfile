@@ -9,7 +9,7 @@ pipeline {
         }
         stage('Example JSON Deploy') {
             when {
-              changeset "**/*.json"
+              changeset "translations/**/*.json"
             }
             steps {
                 echo 'Deploying JSON'
