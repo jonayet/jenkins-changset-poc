@@ -1,11 +1,9 @@
+  def containsTranslationsChange = false
+  def containsOtherChange = false
+
 pipeline {
     agent any
     stages {
-        // script {
-        //   def containsTranslationsChange = false
-        //   def containsOtherChange = false
-        // }
-
         stage('Prepare') {
             steps {
                 echo 'Preparing.....'
@@ -15,33 +13,36 @@ pipeline {
 
         stage('Determine if contains translations change.....') {
             when {
+              // if changeset contains any translations change
               changeset "translations/**/*.json"
             }
             steps {
-                // containsTranslationsChange = true
+                script {
+                    containsTranslationsChange = true
+                }
                 echo 'Translations change detected'
             }
         }
 
         stage('Determine if contains other change.....') {
             when {
-                allOf {
-                    changeset "**/*.*"
-                    not {
-                      changeset "translations/**/*.json"
-                    }
-                }
+                // if changeset contains changes other than translations
+                changeset '^(?!translations\\.*\.json$).*$', comparator: 'REGEXP'
             }
             steps {
-                // containsOtherChange = true
+                script {
+                    containsOtherChange = true
+                }
                 echo 'Other change detected'
             }
         }
 
-        // if(!containsOtherChange) {
-        //   currentBuild.result = 'SUCCESS'
-        //   return
-        // }
+        script {
+          if(!containsOtherChange) {
+            currentBuild.result = 'SUCCESS'
+            return
+          }
+        }
 
         stage('Build others...') {
             steps {
