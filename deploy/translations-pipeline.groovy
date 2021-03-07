@@ -1,5 +1,5 @@
-  node {
-    stage('Prepare') {
-      echo 'success!'
-    }
+node {
+  stage('Prepare') {
+    echo 'success!'
+  }
 }
