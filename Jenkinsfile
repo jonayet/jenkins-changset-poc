@@ -1,5 +1,6 @@
   def containsTranslationsChange = false
   def containsOtherChange = false
+  def reg = '^(?!translations/.*\\.json$).*$'
 
 pipeline {
     agent any
@@ -27,7 +28,7 @@ pipeline {
         stage('Determine if contains other change.....') {
             when {
                 // if changeset contains changes other than translations
-                changeset pattern: '^(?!translations/.*\\.json$).*$', comparator: 'REGEXP'
+                changeset pattern: reg, comparator: 'REGEXP'
             }
             steps {
                 script {
