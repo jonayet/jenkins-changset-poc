@@ -25,7 +25,7 @@ pipelineJob("utils/translations") {
           }
         }
 
-        scriptPath('deployment/translations-pipeline.groovy')
+        scriptPath('deploy/translations-pipeline.groovy')
         lightweight(true)
       }
     }
