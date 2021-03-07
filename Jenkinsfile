@@ -35,23 +35,13 @@ pipeline {
                 // if changeset contains changes other than translations
                 changeset pattern: matchOtherFiles, comparator: 'REGEXP'
             }
-            steps {
-                script {
-                    containsOtherChange = true
+            stages {
+                echo 'Other change detected, building others'
+                stage('Build others...') {
+                    steps {
+                        echo 'Building others...'
+                    }
                 }
-                echo 'Other change detected'
-            }
-        }
-
-        if(!containsOtherChange) {
-          echo 'No other change detected, closing '
-          currentBuild.result = 'SUCCESS'
-          return
-        }
-
-        stage('Build others...') {
-            steps {
-                echo 'Building others...'
             }
         }
     }
