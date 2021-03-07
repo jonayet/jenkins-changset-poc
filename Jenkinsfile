@@ -6,7 +6,7 @@ pipeline {
                 echo 'Hello World'
             }
         }
-        stage('Example Deploy') {
+        stage('Example JSON Deploy') {
             when {
               changeset "**/*.json"
             }
@@ -14,7 +14,7 @@ pipeline {
                 echo 'Deploying JSON'
             }
         }
-        stage('Example Deploy') {
+        stage('Example Jenkins Deploy') {
             when {
               changeset "Jenkinsfile"
             }
