@@ -23,6 +23,10 @@ pipeline {
                     containsTranslationsChange = true
                 }
                 echo 'Translations change detected'
+
+                build job: 'utils/translations', parameters: [
+                  string(name: 'COMMIT', value: 'HEAD')
+                ]
             }
         }
 
