@@ -4,6 +4,7 @@ pipeline {
         stage('Example Build') {
             steps {
                 echo 'Hello World'
+                checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'c8d53f2f-d365-4159-82dd-050eceaa2bac', url: 'https://github.com/jonayet/jenkins-changset-poc.git']]])
             }
         }
         stage('Example JSON Deploy') {
