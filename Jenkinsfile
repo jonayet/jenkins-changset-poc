@@ -4,11 +4,11 @@ def matchOtherFiles = "^(?!${matchTranslationFiles}).*\$"
 
 @NonCPS
 def containsTranslationsChange(def changeSets) {
-  def translationFilePattern = ~/translations\/.*\.json$/
+  def translationFilePattern = /translations\/.*\.json$/
   for (def changeSet : changeSets) {
     for (def entry : changeSet) {
       for (def file : entry.affectedFiles) {
-        if (file.path == translationFilePattern)
+        if (file.path ===~ translationFilePattern)
           return true
       }
     }
@@ -18,11 +18,11 @@ def containsTranslationsChange(def changeSets) {
 
 @NonCPS
 def containsOtherFileChange(def changeSets) {
-  def translationFilePattern = ~/translations\/.*\.json$/
+  def translationFilePattern = /translations\/.*\.json$/
   for (def changeSet : changeSets) {
     for (def entry : changeSet) {
       for (def file : entry.affectedFiles) {
-        if (file.path != translationFilePattern)
+        if (file.path !=~ translationFilePattern)
           return true
       }
     }
