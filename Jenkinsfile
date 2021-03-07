@@ -27,7 +27,7 @@ pipeline {
         stage('Determine if contains other change.....') {
             when {
                 // if changeset contains changes other than translations
-                changeset pattern: '^(?!translations\/.*\\.json$).*$', comparator: 'REGEXP'
+                changeset pattern: '^(?!translations/.*\\.json$).*$', comparator: 'REGEXP'
             }
             steps {
                 script {
