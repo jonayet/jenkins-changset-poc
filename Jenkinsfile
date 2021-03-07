@@ -4,14 +4,16 @@ def matchOtherFiles = "^(?!${matchTranslationFiles}).*\$"
 
 @NonCPS
 def containsTranslationsChange(def changeSets) {
-  // def files = new ArrayList()
-  for (def entries : changeSets) {
-    for (def entry : changeSets[i].items) {
+  def files = new ArrayList()
+  for (def changeSet : changeSets) {
+    for (def entry : changeSet) {
       for (def file : entry.affectedFiles) {
-        echo "${file.editType.name} ${file.path}"
+        files.add(file.path)
       }
     }
   }
+
+  echo "${files}"
 }
 
 node {
