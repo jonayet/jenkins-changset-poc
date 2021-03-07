@@ -1,4 +1,4 @@
-def gitUrl = "https://github.com/example/project.git"
+def gitUrl = "https://github.com/jonayet/jenkins-changset-poc.git"
 
 pipelineJob("utils/translations") {
     description "Builds MyProject from master branch."
