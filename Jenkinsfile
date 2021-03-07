@@ -37,12 +37,12 @@ pipeline {
             }
         }
 
-        script {
-          if(!containsOtherChange) {
-            currentBuild.result = 'SUCCESS'
-            return
-          }
-        }
+        // script {
+        //   if(!containsOtherChange) {
+        //     currentBuild.result = 'SUCCESS'
+        //     return
+        //   }
+        // }
 
         stage('Build others...') {
             steps {
