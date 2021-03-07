@@ -22,7 +22,7 @@ def containsOtherFileChange(def changeSets) {
   for (def changeSet : changeSets) {
     for (def entry : changeSet) {
       for (def file : entry.affectedFiles) {
-        if (file.path !=~ translationFilePattern)
+        if (!(file.path ==~ translationFilePattern))
           return true
       }
     }
