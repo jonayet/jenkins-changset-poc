@@ -1,8 +1,10 @@
 pipeline {
     agent any
     stages {
-        def containsTranslationsChange = false
-        def containsOtherChange = false
+        // script {
+        //   def containsTranslationsChange = false
+        //   def containsOtherChange = false
+        // }
 
         stage('Prepare') {
             steps {
@@ -16,7 +18,7 @@ pipeline {
               changeset "translations/**/*.json"
             }
             steps {
-                containsTranslationsChange = true
+                // containsTranslationsChange = true
                 echo 'Translations change detected'
             }
         }
@@ -31,15 +33,15 @@ pipeline {
                 }
             }
             steps {
-                containsOtherChange = true
+                // containsOtherChange = true
                 echo 'Other change detected'
             }
         }
 
-        if(!containsOtherChange) {
-          currentBuild.result = 'SUCCESS'
-          return
-        }
+        // if(!containsOtherChange) {
+        //   currentBuild.result = 'SUCCESS'
+        //   return
+        // }
 
         stage('Build others...') {
             steps {
