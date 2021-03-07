@@ -1,7 +1,7 @@
   def containsTranslationsChange = false
   def containsOtherChange = false
-  def matchTranslationFiles = "translations/.*\\.json$"
-  def matchOtherFiles = "^(?!${matchTranslationFiles}).*$"
+  def matchTranslationFiles = 'translations/.*\\.json$'
+  def matchOtherFiles = "^(?!${matchTranslationFiles}).*\$"
 
 pipeline {
     agent any
