@@ -1,19 +1,32 @@
 def containsOtherChange = false
 def matchTranslationFiles = 'translations/.*\\.json$'
 def matchOtherFiles = "^(?!${matchTranslationFiles}).*\$"
+def translationFilePattern = ~/translations\/.*\.json$/
 
 @NonCPS
 def containsTranslationsChange(def changeSets) {
-  def files = new ArrayList()
   for (def changeSet : changeSets) {
     for (def entry : changeSet) {
       for (def file : entry.affectedFiles) {
-        files.add(file.path)
+        if (file.path == translationFilePattern))
+          return true
       }
     }
   }
+  return false
+}
 
-  echo "${files}"
+@NonCPS
+def containsOtherFileChange(def changeSets) {
+  for (def changeSet : changeSets) {
+    for (def entry : changeSet) {
+      for (def file : entry.affectedFiles) {
+        if (file.path != translationFilePattern))
+          return true
+      }
+    }
+  }
+  return false
 }
 
 node {
@@ -23,7 +36,8 @@ node {
   }
 
   stage('Determine if contains translations change.....') {
-    containsTranslationsChange(currentBuild.changeSets)
+    echo "translations: ${containsTranslationsChange(currentBuild.changeSets)}"
+    echo "others: ${containsOtherFileChange(currentBuild.changeSets)}"
   }
 }
 
