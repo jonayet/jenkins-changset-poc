@@ -31,7 +31,7 @@ def containsTranslationsChange(def changeSets) {
 @NonCPS
 def containsOtherFileChange(def changeSets) {
   return containsPath(changeSets, {
-    file -> !isTranslationPath(filePath)
+    file -> !isTranslationPath(file)
   })
 }
 
