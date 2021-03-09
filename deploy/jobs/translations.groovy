@@ -12,7 +12,7 @@ static forEnv(def dsl, String environment) {
     shallow: 1
   ]
 
-  dsl.pipelineJob("${translations_job.jobName}/${environment}") {
+  dsl.pipelineJob("${translations.jobName}/${environment}") {
     description "Upload translations to S3 bucket."
 
     parameters {
@@ -50,7 +50,7 @@ static forEnv(def dsl, String environment) {
           }
         }
 
-        scriptPath(translations_job.pipeline)
+        scriptPath(translations.pipeline)
         lightweight(true)
       }
     }
@@ -73,7 +73,16 @@ static forEnv(def dsl, String environment) {
   }
 }
 
-folder(translations_job.jobName)
-translations_job.forEnv(this, 'development')
-translations_job.forEnv(this, 'staging')
-translations_job.forEnv(this, 'production')
+folder(translations.jobName)
+translations.forEnv(this, 'development')
+translations.forEnv(this, 'staging')
+translations.forEnv(this, 'production')
+
+
+def deploy(def commitId) {
+  build job: "${translations.jobName}/development", parameters: [
+    string(name: 'commit', value: commitId)
+  ]
+}
+
+return this
