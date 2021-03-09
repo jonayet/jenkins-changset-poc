@@ -2,7 +2,7 @@ import config
 
 // static jobName = "${config.rootFolderName}/utils/upload-translations"
 
-options = [
+static options = [
   shallow: 1
 ]
 
