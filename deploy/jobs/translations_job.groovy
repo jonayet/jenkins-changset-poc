@@ -1,8 +1,11 @@
-import groovy.transform.Field
 import config
+import groovy.transform.Field
 
 @Field
 static jobName = "${config.rootFolderName}/utils/translations"
+
+@Field
+static pipeline = 'deploy/translations-pipeline.groovy'
 
 static forEnv(def dsl, String environment) {
   def options = [
@@ -47,7 +50,7 @@ static forEnv(def dsl, String environment) {
           }
         }
 
-        scriptPath('deploy/translations-pipeline.groovy')
+        scriptPath(translations_job.pipeline)
         lightweight(true)
       }
     }
