@@ -49,7 +49,7 @@ node {
 
     echo 'Translations change detected, trigger external job.'
     build job: 'utils/translations', parameters: [
-      string(name: 'COMMIT', value: 'HEAD')
+      string(name: 'commit', value: '123')
     ]
   }
 
