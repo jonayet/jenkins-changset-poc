@@ -6,5 +6,7 @@ static rootFolderName = 'glass'
 @Field
 static glassCloneOptions = [
   gitUrl: 'https://github.com/jonayet/jenkins-changset-poc.git',
-  gitCredentials: 'github'
+  gitCredentials: 'github',
+  referenceRepo: '/home/ubuntu/.cache/glass',
+  timeout: 10
 ]

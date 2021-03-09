@@ -38,8 +38,8 @@ static forEnv(def dsl, String environment) {
                   depth(options.shallow)
                 }
 
-                // reference(config.glassCloneOptions.referenceRepo)
-                // timeout(config.glassCloneOptions.timeout)
+                reference(config.glassCloneOptions.referenceRepo)
+                timeout(config.glassCloneOptions.timeout)
               }
             }
           }
