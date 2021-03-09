@@ -1,12 +1,10 @@
-// match ONLY following path pattern
-// translations/brand/en_IN.json
-// lib/translations-reader/__test__/__missing_translations__/brand-cs_CZ.json
-// lib/translations-reader/__test__/__snapshots__/brand-en_IN.json
-@NonCPS
-translationPathPattern = /^(translations|lib\/translations-reader).*\W[a-z]{2}_[A-Z]{2}\.json$/
-
 @NonCPS
 def isTranslationPath(def path) {
+  // match ONLY following path pattern
+  // translations/brand/en_IN.json
+  // lib/translations-reader/__test__/__missing_translations__/brand-cs_CZ.json
+  // lib/translations-reader/__test__/__snapshots__/brand-en_IN.json
+  def translationPathPattern = /^(translations|lib\/translations-reader).*\W[a-z]{2}_[A-Z]{2}\.json$/
   return path ==~ translationPathPattern
 } 
 
