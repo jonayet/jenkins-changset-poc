@@ -4,7 +4,7 @@ node {
     checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'c8d53f2f-d365-4159-82dd-050eceaa2bac', url: 'https://github.com/jonayet/jenkins-changset-poc.git']]])
   }
 
-  def changeset = load('deploy/changeset')
+  def changeset = load('deploy/changeset.groovy')
 
   stage('Build translations') {
    if (!changeset.containsTranslationsChange(currentBuild.changeSets)) {
@@ -12,7 +12,7 @@ node {
     return
    }
 
-   def translations = load('deploy/jobs/translations')
+   def translations = load('deploy/jobs/translations.groovy')
 
     echo 'Translations change detected, trigger external job.'
     translations.deploy('124')
