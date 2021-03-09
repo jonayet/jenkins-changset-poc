@@ -13,7 +13,7 @@ node {
    }
 
     echo 'Translations change detected, trigger external job.'
-    translationsUtils.deploy('124')
+    translationsUtils.deploy('development', '124')
   }
 
   if (!translationsUtils.containsOtherChange(currentBuild.changeSets)) {
