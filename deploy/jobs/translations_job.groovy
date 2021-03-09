@@ -1,13 +1,15 @@
+import groovy.transform.Field
 import config
 
-// static jobName = "${config.rootFolderName}/utils/upload-translations"
+@Field
+static jobName = "${config.rootFolderName}/utils/translations"
 
 static forEnv(def dsl, String environment) {
   def options = [
     shallow: 1
   ]
 
-  dsl.pipelineJob("${config.rootFolderName}/utils/translations/${environment}") {
+  dsl.pipelineJob("${translations_job.jobName}/${environment}") {
     description "Upload translations to S3 bucket."
 
     parameters {
@@ -68,7 +70,7 @@ static forEnv(def dsl, String environment) {
   }
 }
 
-folder("${config.rootFolderName}/utils/translations")
+folder(translations_job.jobName)
 translations_job.forEnv(this, 'development')
 translations_job.forEnv(this, 'staging')
 translations_job.forEnv(this, 'production')
