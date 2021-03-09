@@ -7,7 +7,7 @@ static forEnv(def dsl, String environment) {
     shallow: 1
   ]
 
-  dsl.pipelineJob("${config.rootFolderName}/utils/upload-translations/${environment}") {
+  dsl.pipelineJob("${config.rootFolderName}/utils/translations/${environment}") {
     description "Upload translations to S3 bucket."
 
     parameters {
