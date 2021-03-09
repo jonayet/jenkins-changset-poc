@@ -45,7 +45,7 @@ static forEnv(def dsl, String environment) {
           }
         }
 
-        scriptPath(script)
+        scriptPath('deploy/translations-pipeline.groovy')
         lightweight(true)
       }
     }
