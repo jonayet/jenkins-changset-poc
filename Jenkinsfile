@@ -48,7 +48,7 @@ node {
    }
 
     echo 'Translations change detected, trigger external job.'
-    build job: 'utils/translations', parameters: [
+    build job: 'glass/utils/translations/development', parameters: [
       string(name: 'commit', value: '123')
     ]
   }

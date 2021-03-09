@@ -68,7 +68,7 @@ static forEnv(def dsl, String environment) {
   }
 }
 
-folder("${config.rootFolderName}/utils/upload-translations")
+folder("${config.rootFolderName}/utils/translations")
 translations_job.forEnv(this, 'development')
 translations_job.forEnv(this, 'staging')
 translations_job.forEnv(this, 'production')
