@@ -1,11 +1,21 @@
-translationFilePattern = /translations\/.*[a-z]{2}_[A-Z]{2}\.json$/
+// match ONLY following path pattern
+// translations/brand/en_IN.json
+// lib/translations-reader/__test__/__missing_translations__/brand-cs_CZ.json
+// lib/translations-reader/__test__/__snapshots__/brand-en_IN.json
+@NonCPS
+translationPathPattern = /^(translations|lib\/translations-reader).*\W[a-z]{2}_[A-Z]{2}\.json$/
 
 @NonCPS
-def containsTranslationsChange(def changeSets) {
+def isTranslationPath(def path) {
+  return path ==~ translationPathPattern
+} 
+
+@NonCPS
+def containsPath(def changeSets, Closure checkPath) {
   for (def changeSet : changeSets) {
     for (def entry : changeSet) {
       for (def file : entry.affectedFiles) {
-        if (file.path ==~ translationFilePattern)
+        if (checkPath(file.path))
           return true
       }
     }
@@ -14,16 +24,17 @@ def containsTranslationsChange(def changeSets) {
 }
 
 @NonCPS
+def containsTranslationsChange(def changeSets) {
+  return containsPath(changeSets, {
+    path -> isTranslationPath(path)
+  })
+}
+
+@NonCPS
 def containsOtherFileChange(def changeSets) {
-  for (def changeSet : changeSets) {
-    for (def entry : changeSet) {
-      for (def file : entry.affectedFiles) {
-        if (!(file.path ==~ translationFilePattern))
-          return true
-      }
-    }
-  }
-  return false
+  return containsPath(changeSets, {
+    file -> !isTranslationPath(filePath)
+  })
 }
 
 node {
