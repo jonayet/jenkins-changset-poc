@@ -1,13 +1,13 @@
 import config
 
-static jobName = "${config.rootFolderName}/utils/upload-translations"
+// static jobName = "${config.rootFolderName}/utils/upload-translations"
 
 options = [
   shallow: 1
 ]
 
 static forEnv(def dsl, String environment) {
-  dsl.pipelineJob("${translations_job.jobName}/${environment}") {
+  dsl.pipelineJob("${config.rootFolderName}/utils/upload-translations/${environment}") {
     description "Upload translations to S3 bucket."
 
     parameters {
@@ -68,7 +68,7 @@ static forEnv(def dsl, String environment) {
   }
 }
 
-folder(translations_job.jobName)
+folder("${config.rootFolderName}/utils/upload-translations")
 translations_job.forEnv(this, 'development')
 translations_job.forEnv(this, 'staging')
 translations_job.forEnv(this, 'production')
