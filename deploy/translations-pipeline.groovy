@@ -1,6 +1,6 @@
 node {
   stage('Prepare') {
-    echo "${params.commit}"
+    echo "${params.commitId}"
     echo 'success!'
   }
 }

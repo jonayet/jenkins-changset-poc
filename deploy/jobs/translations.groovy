@@ -16,7 +16,7 @@ static forEnv(def dsl, String environment) {
     description "Upload translations to S3 bucket."
 
     parameters {
-      stringParam('commit', '', 'Commit to get translations from.')
+      stringParam('commitId', '', 'Commit to get translations from.')
     }
 
     definition {
