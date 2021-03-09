@@ -54,6 +54,7 @@ node {
   }
 
   if (!containsOtherFileChange(currentBuild.changeSets)) {
+    echo 'Others change not detected'
     currentBuild.result = 'SUCCESS'
     return
   }
