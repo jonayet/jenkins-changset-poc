@@ -18,7 +18,7 @@ node {
     translations.deploy('124')
   }
 
-  if (!changeset.containsOtherFileChange(currentBuild.changeSets)) {
+  if (!changeset.containsOtherChange(currentBuild.changeSets)) {
     echo 'Others change not detected'
     currentBuild.result = 'SUCCESS'
     return
