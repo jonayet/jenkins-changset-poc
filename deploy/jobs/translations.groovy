@@ -77,12 +77,3 @@ folder(translations.jobName)
 translations.forEnv(this, 'development')
 translations.forEnv(this, 'staging')
 translations.forEnv(this, 'production')
-
-
-def deploy(def commitId) {
-  build job: "${translations.jobName}/development", parameters: [
-    string(name: 'commit', value: commitId)
-  ]
-}
-
-return this

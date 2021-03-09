@@ -35,4 +35,11 @@ def containsOtherChange(def changeSets) {
   })
 }
 
+@NonCPS
+def deploy(def environment, def commitId) {
+  build job: "glass/utils/translations/${environment}", parameters: [
+    string(name: 'commit', value: commitId)
+  ]
+}
+
 return this
