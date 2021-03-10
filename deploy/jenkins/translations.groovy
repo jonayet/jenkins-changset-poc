@@ -1,4 +1,3 @@
-@NonCPS
 def testStage() {
   return {
     stage('Test translations') {
