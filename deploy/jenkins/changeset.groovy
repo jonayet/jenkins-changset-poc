@@ -22,24 +22,16 @@ def containsPath(def changeSets, Closure checkPath) {
 }
 
 @NonCPS
-def containsTranslationsChange(def changeSets) {
+def containsTranslations(def changeSets) {
   return containsPath(changeSets, {
     path -> isTranslationPath(path)
   })
 }
 
 @NonCPS
-def containsOtherChange(def changeSets) {
-  return containsPath(changeSets, {
+def containsOnlyTranslations(def changeSets) {
+  def containsOtherChange = containsPath(changeSets, {
     file -> !isTranslationPath(file)
   })
+  return containsTranslationsChange(changeSets) && !containsOtherChange
 }
-
-@NonCPS
-def deploy(def environment, def commitId) {
-  build job: "glass/utils/translations/${environment}", parameters: [
-    string(name: 'commitId', value: commitId)
-  ]
-}
-
-return this
