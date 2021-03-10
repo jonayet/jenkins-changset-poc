@@ -4,8 +4,8 @@ node {
     checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'c8d53f2f-d365-4159-82dd-050eceaa2bac', url: 'https://github.com/jonayet/jenkins-changset-poc.git']]])
   }
 
-  def changeset = load('deploy/jenkins/changeset.groovy')
-  def translations = load('deploy/jenkins/translations.groovy')
+  // def changeset = load('deploy/jenkins/changeset.groovy')
+  // def translations = load('deploy/jenkins/translations.groovy')
 
   // stage('Build translations') {
   //  if (!translationsUtil.containsTranslationsChange(currentBuild.changeSets)) {
@@ -23,9 +23,17 @@ node {
   //   return
   // }
 
-  translations.testStage().call()
+  testStage().call()
 
   stage('Build others') {
     echo 'Building others...'
+  }
+}
+
+def testStage = {
+  return {
+    stage('Test translations') {
+      echo 'Test completed'
+    }
   }
 }
