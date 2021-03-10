@@ -1,3 +1,11 @@
+def testStage() {
+  return {
+    stage('Test translations') {
+      echo 'Test completed'
+    }
+  }
+}
+
 node {
   stage('Prepare') {
     echo 'Preparing.....'
@@ -27,13 +35,5 @@ node {
 
   stage('Build others') {
     echo 'Building others...'
-  }
-}
-
-def testStage = {
-  return {
-    stage('Test translations') {
-      echo 'Test completed'
-    }
   }
 }
