@@ -1,8 +1,8 @@
 @NonCPS
-def testStage = {
+def testStage() {
   return {
     stage('Test translations') {
-      echo 'Test completed'
+      echo 'Test completed 1'
     }
   }
 }

@@ -1,11 +1,3 @@
-def testStage() {
-  return {
-    stage('Test translations') {
-      echo 'Test completed'
-    }
-  }
-}
-
 node {
   stage('Prepare') {
     echo 'Preparing.....'
@@ -13,7 +5,7 @@ node {
   }
 
   // def changeset = load('deploy/jenkins/changeset.groovy')
-  // def translations = load('deploy/jenkins/translations.groovy')
+  def translations = load('deploy/jenkins/translations.groovy')
 
   // stage('Build translations') {
   //  if (!translationsUtil.containsTranslationsChange(currentBuild.changeSets)) {
@@ -31,7 +23,7 @@ node {
   //   return
   // }
 
-  testStage().call()
+  translations.testStage().call()
 
   stage('Build others') {
     echo 'Building others...'
