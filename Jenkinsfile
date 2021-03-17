@@ -4,26 +4,28 @@ node {
     checkout([$class: 'GitSCM', branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[credentialsId: 'c8d53f2f-d365-4159-82dd-050eceaa2bac', url: 'https://github.com/jonayet/jenkins-changset-poc.git']]])
   }
 
-  // def changeset = load('deploy/jenkins/changeset.groovy')
+  def changeset = load('deploy/jenkins/changeset.groovy')
   def translations = load('deploy/jenkins/translations.groovy')
 
-  // stage('Build translations') {
-  //  if (!translationsUtil.containsTranslationsChange(currentBuild.changeSets)) {
-  //   echo 'Translations change not detected'
-  //   return
-  //  }
+  if (changeset.containsOnlyTranslations(currentBuild.changeSets)) {
+    println 'Only translations changes are detected, lets test and upload to S3.'
 
-  //   echo 'Translations change detected, trigger external job.'
-  //   translationsUtil.deploy('development', '125')
-  // }
+    translations.installDependencies().call()
+    translations.runRests().call()
+    translations.uploadToS3('development').call()
 
-  // if (!translationsUtil.containsOtherChange(currentBuild.changeSets)) {
-  //   echo 'Others change not detected'
-  //   currentBuild.result = 'SUCCESS'
-  //   return
-  // }
+    println 'Translations successfully upload to S3!'
+    currentBuild.result = 'SUCCESS'
+    return
+  }
 
-  translations.testStage().call()
+  if (changeset.containsTranslations(currentBuild.changeSets)) {
+    println 'Translations changes are detected, lets upload to S3.'
+
+    translations.installDependencies().call()
+    translations.runRests().call()
+    translations.uploadToS3('development').call()
+  }
 
   stage('Build others') {
     echo 'Building others...'
